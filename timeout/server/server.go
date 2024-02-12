@@ -17,6 +17,7 @@ type server struct {
 }
 
 func (s *server) Create(ctx context.Context, in *product.CreateProductRequest) (*product.CreateProductResponse, error) {
+	time.Sleep(2 * time.Second)
 	return &product.CreateProductResponse{ProductId: 1243}, nil
 }
 
