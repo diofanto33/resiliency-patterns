@@ -3,6 +3,7 @@ package main
 import (
 	"context"
 	"log"
+	"time"
 
 	"github.com/diofanto33/resiliency-patterns/timeout/product"
 	"google.golang.org/grpc"
@@ -19,9 +20,9 @@ func main() {
 	defer conn.Close()
 
 	produtClient := product.NewProductServiceClient(conn)
-
+	ctx, _ := context.WithTimeout(context.Background(), 1*time.Second)
 	log.Println("Creating product...")
-	_, errCreate := produtClient.Create(context.Background(), &product.CreateProductRequest{Name: "diofanto33", Code: 2424, Price: 12.3})
+	_, errCreate := produtClient.Create(ctx, &product.CreateProductRequest{Name: "diofanto33", Code: 2424, Price: 12.3})
 	if errCreate != nil {
 		log.Printf("Failed to create product. Err: %v", errCreate)
 	} else {
