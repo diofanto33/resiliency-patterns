@@ -1,0 +1,17 @@
+syntax = "proto3";
+
+option go_package="github.com/diofanto33/resiliency-patterns/timeout/product";
+
+message CreateProductRequest {
+  string name = 1;
+  int32  code = 2;
+  float price = 3;
+}
+
+message CreateProductResponse {
+  int32 product_id = 1;
+}
+
+service ProductService {
+  rpc Create(CreateProductRequest) returns (CreateProductResponse){}
+}
