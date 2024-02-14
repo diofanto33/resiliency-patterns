@@ -1,0 +1,17 @@
+syntax = "proto3";
+
+option go_package = "github.com/diofanto33/resiliency-patterns/circuit-breaker/user";
+
+message CreateUserRequest {
+    string name = 1;
+    string email = 2;
+    string password = 3;
+}
+
+message CreateUserResponse {
+    int32 user_id = 1;
+}
+
+service UserService {
+    rpc CreateUser(CreateUserRequest) returns (CreateUserResponse);
+}
