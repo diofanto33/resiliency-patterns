@@ -1,10 +1,13 @@
-package server
+package main
 
 import (
 	"context"
+	"errors"
 	"fmt"
 	"log"
+	"math/rand"
 	"net"
+	"time"
 
 	"github.com/diofanto33/resiliency-patterns/circuit-breaker/user"
 	"google.golang.org/grpc"
@@ -15,7 +18,12 @@ type Server struct {
 }
 
 func (s *Server) CreateUser(ctx context.Context, in *user.CreateUserRequest) (*user.CreateUserResponse, error) {
-	return &user.CreateUserResponse{UserId: 1}, nil
+	var err error
+	rand.Seed(time.Now().UnixNano())
+	if rand.Intn(2) == 1 {
+		err = errors.New("create user error")
+	}
+	return &user.CreateUserResponse{UserId: 11111}, err
 }
 
 func main() {
